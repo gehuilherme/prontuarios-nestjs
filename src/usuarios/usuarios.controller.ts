@@ -6,10 +6,9 @@ import {
   Param,
   Post,
   Put,
-  Query,
 } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
-import { Prisma, Usuario as UsuariosModel } from '@prisma/client';
+import { Usuario as UsuariosModel } from '@prisma/client';
 
 @Controller('usuarios')
 export class UsuariosController {

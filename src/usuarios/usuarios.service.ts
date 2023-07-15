@@ -18,20 +18,6 @@ export class UsuariosService {
     return this.prisma.usuario.findMany();
   }
 
-  async usuariosPorStatus(params: {
-    where?: Prisma.UsuarioWhereInput;
-    status: boolean;
-  }): Promise<Usuario[]> {
-    const { where, status } = params;
-    const whereWithStatus = {
-      ...where,
-      status: status,
-    };
-    return this.prisma.usuario.findMany({
-      where: whereWithStatus,
-    });
-  }
-
   async criarUsuario(data: Prisma.UsuarioCreateInput): Promise<Usuario> {
     return this.prisma.usuario.create({
       data,
