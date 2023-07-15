@@ -28,6 +28,7 @@ model Usuario {
   email             String        @unique
   senha             String
   role              Role          @default(ENFERMEIRO)
+  status            Boolean       @default(true)
   dataCadastro      DateTime      @default(now())
   ultimaAtualizacao DateTime      @updatedAt
   prontuarios       Prontuarios[]

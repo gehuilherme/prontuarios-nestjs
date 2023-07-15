@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, Usuario } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 
-
 @Injectable()
 export class UsuariosService {
   constructor(private prisma: PrismaService) {}
@@ -17,5 +16,42 @@ export class UsuariosService {
 
   async usuarios(): Promise<Usuario[]> {
     return this.prisma.usuario.findMany();
+  }
+
+  async usuariosPorStatus(params: {
+    where?: Prisma.UsuarioWhereInput;
+    status: boolean;
+  }): Promise<Usuario[]> {
+    const { where, status } = params;
+    const whereWithStatus = {
+      ...where,
+      status: status,
+    };
+    return this.prisma.usuario.findMany({
+      where: whereWithStatus,
+    });
+  }
+
+  async criarUsuario(data: Prisma.UsuarioCreateInput): Promise<Usuario> {
+    return this.prisma.usuario.create({
+      data,
+    });
+  }
+
+  async alteraUsuario(params: {
+    where: Prisma.UsuarioWhereUniqueInput;
+    data: Prisma.UsuarioUpdateInput;
+  }): Promise<Usuario> {
+    const { data, where } = params;
+    return this.prisma.usuario.update({
+      data,
+      where,
+    });
+  }
+
+  async deletaUsuario(where: Prisma.UsuarioWhereUniqueInput): Promise<Usuario> {
+    return this.prisma.usuario.delete({
+      where,
+    });
   }
 }
